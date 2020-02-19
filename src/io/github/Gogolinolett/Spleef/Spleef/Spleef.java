@@ -8,6 +8,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Spleef extends JavaPlugin {
@@ -36,6 +37,22 @@ public class Spleef extends JavaPlugin {
 	}
 	
 	
+	public static void createMap(String name){
+		ResultSet rs = runSQLQuery("SELECT name FROM Maps WHERE name =\""+ name +"\"");
+		
+		try {
+			if(!rs.next()){
+				runSQL("INSERT (name) INTO Maps Values (\""+ name +"\")");
+			}else{
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
 	private void setupDB() throws SQLException {
 		boolean isNew = !Files.exists(Paths.get(plugin.getDataFolder().getAbsolutePath() + "\\database.db"));
 		sqlc = connect(plugin.getDataFolder().getAbsolutePath() + "\\database.db");
@@ -43,7 +60,7 @@ public class Spleef extends JavaPlugin {
 		if (isNew) {
 			plugin.getLogger().info("Creating DB!");
 			
-			runSQL("CREATE TABLE Maps(x REAL, y REAL, z REAL, )");
+			runSQL("CREATE TABLE Maps(x REAL, y REAL, z REAL, name STRING PRIMARY KEY)");
 		}
 		
 	}
