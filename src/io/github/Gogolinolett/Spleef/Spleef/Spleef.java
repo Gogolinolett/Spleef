@@ -43,7 +43,7 @@ public class Spleef extends JavaPlugin {
 		if (isNew) {
 			plugin.getLogger().info("Creating DB!");
 			
-			runSQL("CREATE TABLE ");
+			runSQL("CREATE TABLE Maps(x REAL, y REAL, z REAL, )");
 		}
 		
 	}
