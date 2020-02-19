@@ -37,14 +37,15 @@ public class Spleef extends JavaPlugin {
 	}
 	
 	
-	public static void createMap(String name){
+	public static void createMap(Player p, String name){
 		ResultSet rs = runSQLQuery("SELECT name FROM Maps WHERE name =\""+ name +"\"");
 		
 		try {
 			if(!rs.next()){
 				runSQL("INSERT (name) INTO Maps Values (\""+ name +"\")");
-			}else{
 				
+			}else{
+				p.sendMessage("Diese Map existiert bereits!");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
